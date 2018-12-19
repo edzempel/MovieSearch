@@ -1,4 +1,5 @@
 import movie_svc
+import requests.exceptions
 
 
 def main():
@@ -25,8 +26,14 @@ def search_event_loop():
                     print('{} -- {}'.format(
                         r.year, r.title
                     ))
-        except:
-            print("YIKES, that didn't work!")
+                print()
+        # python looks at errors from top to bottom and executes the first match
+        except ValueError as ve:
+            print(ve)
+        except requests.exceptions.ConnectionError:
+            print("Error: Your network is down.")
+        except Exception as x:
+            print("Unexpected error. Details: {}".format(x))
 
     print('exiting...')
 
